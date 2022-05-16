@@ -2,6 +2,7 @@ package com.yuneec.videostreaming;
 
 import android.util.Log;
 import android.view.Surface;
+import android.view.SurfaceHolder;
 
 import java.io.IOException;
 
@@ -18,9 +19,9 @@ public class RTSPPlayer extends VideoPlayer {
 
     private static final String TAG = "RTSPPlayer";
 
-    private String PLAYER_NOT_INITALIZED = "Player null - Initialize the player first";
+    private final String PLAYER_NOT_INITALIZED = "Player null - Initialize the player first";
 
-    private String NULL_URL = "Data Source is null";
+    private final String NULL_URL = "Data Source is null";
 
     @Override
     public void initializePlayer() {
@@ -34,6 +35,14 @@ public class RTSPPlayer extends VideoPlayer {
             throw new VideoPlayerException(PLAYER_NOT_INITALIZED);
         } else {
             this.mMediaPlayer.setSurface(surface);
+        }
+    }
+
+    public void setDisplay(SurfaceHolder holder) throws VideoPlayerException {
+        if (mMediaPlayer == null) {
+            throw new VideoPlayerException(PLAYER_NOT_INITALIZED);
+        } else {
+            this.mMediaPlayer.setDisplay(holder);
         }
     }
 
@@ -98,14 +107,14 @@ public class RTSPPlayer extends VideoPlayer {
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "islive",
                                  1);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max_delay", 0);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reorder_queue_size", 0);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max_delay", 0);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reorder_queue_size", 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "rtsp_transport", "udp");
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_frame", 0);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 0);
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_frame", 0);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 0);
+       // ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "sync", "ext");
         mediaPlayer = ijkMediaPlayer;
         return mediaPlayer;
